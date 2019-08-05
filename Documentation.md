@@ -1,7 +1,12 @@
 # Plugins
-`void ViewportRender:Inject(plugin)` - Injects a plugin
-`void ViewportRender:Install(module)` - Installs a plugin from a moudle
-`BindableEvent Plugin.OnCamera` - A BindableEvent which is fired when a camera is created
+> `void ViewportRender:Inject(plugin)`
+> Injects a plugin
+>
+> `void ViewportRender:Install(module)`
+> Installs a plugin from a module
+>
+> `BindableEvent Plugin.OnCamera`
+> A BindableEvent which is fired when a camera is created
 
 # Cameras
 > `Camera ViewportRender:CreateCamera()`
