@@ -1,8 +1,8 @@
 # Plugins
-> `void ViewportRender:Inject(plugin)`
+> `void ViewportRender:Inject(Plugin plugin)`
 > Injects a plugin
 >
-> `void ViewportRender:Install(module)`
+> `void ViewportRender:Install(ModuleScript module)`
 > Installs a plugin from a module
 >
 > `BindableEvent Plugin.OnCamera`
