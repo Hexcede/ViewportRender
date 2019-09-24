@@ -4,27 +4,27 @@
 local RunService = game:GetService("RunService")
 
 -- Render object
-local render = {}
+local Render = {}
 
 -- Plugins
-render.Installations = {}
-function render:Inject(plugin)
+Render.Installations = {}
+function Render:Inject(plugin)
 	-- Set up an OnCamera event if one isn't already setup
 	plugin.OnCamera = plugin.OnCamera or Instance.new("BindableEvent")
 	
 	-- Store the plugin
-	table.insert(render.Installations, plugin)
+	table.insert(Render.Installations, plugin)
 end
-function render:Install(module)
+function Render:Install(module)
 	-- Require the plugin
 	local plugin = require(module)
 	
 	-- Inject the plugin
-	render:Inject(plugin)
+	Render:Inject(plugin)
 end
 
 -- Create a camera
-function render:CreateCamera()
+function Render:CreateCamera()
 	-- Camera object
 	local camera = {}
 	
@@ -46,6 +46,7 @@ function render:CreateCamera()
 	
 	-- Camera runner
 	function camera:Run()
+		camera.Running = true
 		spawn(function()
 			-- Clone/real hash
 			local hash = {}
@@ -92,7 +93,7 @@ function render:CreateCamera()
 				viewModel:ClearAllChildren()
 				
 				if object:IsA("BasePart") then
-					-- Part rendering
+					-- Part Rendering
 					
 					-- Start a runner
 					local runnerIndex = #camera.Runners+1
@@ -110,7 +111,7 @@ function render:CreateCamera()
 						-- If the object is visible
 						if object.Transparency < 0.98 then
 							-- Fire change event and change CFrame
-							camera.ChangeEvent:Fire("CFrame", object.CFrame, viewModel.CFrame)
+							camera.ChangeEvent:Fire("CFrame", object.CFrame, viewModel.CFrame, object)
 							viewModel.CFrame = object.CFrame
 						else
 							-- Hide the object
@@ -127,7 +128,7 @@ function render:CreateCamera()
 					if property ~= "Parent" then
 						pcall(function()
 							-- Fire change event and change property
-							camera.ChangeEvent:Fire(property, object[property], viewModel[property])
+							camera.ChangeEvent:Fire(property, object[property], viewModel[property], object)
 							viewModel[property] = object[property]
 						end)
 					end
@@ -186,6 +187,8 @@ function render:CreateCamera()
 	
 	-- Destroy camera
 	function camera:Destroy()
+		camera.Running = false
+		
 		-- Clear data
 		camera.Frame:Destroy()
 		camera.Frame:ClearAllChildren()
@@ -207,7 +210,7 @@ function render:CreateCamera()
 	end
 	
 	-- Plugin handling
-	for _, plugin in ipairs(render.Installations) do
+	for _, plugin in ipairs(Render.Installations) do
 		-- Fire the OnCamera plugin event
 		plugin.OnCamera:Fire(camera)
 	end
@@ -216,5 +219,5 @@ function render:CreateCamera()
 	return camera
 end
 
--- Return render
-return render
+-- Return Render
+return Render
