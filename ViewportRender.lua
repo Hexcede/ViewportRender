@@ -111,7 +111,7 @@ function Render:CreateCamera()
 						-- If the object is visible
 						if object.Transparency < 0.98 then
 							-- Fire change event and change CFrame
-							camera.ChangeEvent:Fire("CFrame", object.CFrame, viewModel.CFrame, object)
+							camera.ChangeEvent:Fire("CFrame", object, object.CFrame, viewModel.CFrame)
 							viewModel.CFrame = object.CFrame
 						else
 							-- Hide the object
@@ -128,7 +128,7 @@ function Render:CreateCamera()
 					if property ~= "Parent" then
 						pcall(function()
 							-- Fire change event and change property
-							camera.ChangeEvent:Fire(property, object[property], viewModel[property], object)
+							camera.ChangeEvent:Fire(property, object, object[property], viewModel[property])
 							viewModel[property] = object[property]
 						end)
 					end
