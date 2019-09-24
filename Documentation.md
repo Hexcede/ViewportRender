@@ -18,6 +18,9 @@
 > `ViewportFrame Camera.Frame`
 > The ViewportFrame for the Camera
 >
+> `boolean Camera.Running`
+> Is the camera running?
+>
 > `table Camera.Runners`
 > A list of connected runners
 >
